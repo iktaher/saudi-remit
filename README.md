@@ -8,7 +8,7 @@ Note: `poll` must run on an always-on host; GitHub Actions only runs `check`.
 
 ## WhatArrives multi-country config
 - Sending countries: `src/config.py` → `COUNTRIES` (URLs `/{lang}/{src}-to-{target}/`, e.g. `aed-to-inr`). SAR data: `data/rates.json` (Wise + WU + Saudi apps); others: `data/rates_{src}.json` (Wise public quotes where the route exists, otherwise mid-market only, clearly labelled).
-- Optional GitHub repo variables (empty = off): `SITE_URL`, `GSC_VERIFICATION`, `GOATCOUNTER_CODE`, `TELEGRAM_URL` (default https://t.me/Yayamy_helper_ya_bot), `CONTACT_EMAIL`, `AFF_WISE_URL`, `AFF_REMITLY_URL`, `AFF_WORLDREMIT_URL`, `AFF_INSTAREM_URL`, `AFF_WU_URL`.
+- Optional GitHub repo variables (empty = off): `SITE_URL`, `GSC_VERIFICATION`, `GOATCOUNTER_CODE`, `TELEGRAM_URL` (default https://t.me/Yayamy_helper_ya_bot), `CONTACT_EMAIL`, `CONTACT_ADDRESS` (shown in footer/About/Contact when set), `AFF_WISE_URL`, `AFF_REMITLY_URL`, `AFF_WORLDREMIT_URL`, `AFF_INSTAREM_URL`, `AFF_WU_URL`.
 - Affiliate links render only on non-SAR pages, only for providers listed for that sending country in `AFFILIATES[...]["send"]`, with `rel="sponsored nofollow"` and a commission note. Never on SAR pages (SAMA). Ranking is by data only.
 
 ## Telegram bot (box)

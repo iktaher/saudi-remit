@@ -65,12 +65,15 @@ NO_PUBLIC = {
  "Xpress Money": "Website refuses automated connections",
 }
 GULF_EXCHANGE = {"AED", "KWD", "QAR", "OMR", "BHD"}
+# Where each no-public-quote provider actually operates (only listed as "coming soon" there).
+SERVES = {"MoneyGram": GULF_EXCHANGE, "Ria": GULF_EXCHANGE, "Xpress Money": GULF_EXCHANGE,
+          "LuLu Exchange": {"AED","KWD","QAR","OMR","BHD"}, "Al Ansari Exchange": {"AED"}, "Al Fardan Exchange": {"AED"}}
 def collect(src, targets, amount):
     """All extra channels for one sending currency. Each provider isolated."""
     res = {}
     for name, fn in (("Remitly", remitly), ("Instarem", instarem)):
         try: res[name] = fn(src, targets, amount)
         except Exception as e: res[name] = na(targets, f"{name} failed: {str(e)[:80]}")
-    if src in GULF_EXCHANGE:
-        for n, why in NO_PUBLIC.items(): res[n] = na(targets, why)
+    for n, why in NO_PUBLIC.items():
+        if src in SERVES.get(n, ()): res[n] = na(targets, why)
     return res

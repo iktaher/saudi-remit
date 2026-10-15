@@ -21,6 +21,7 @@ jobs:
           GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
           TELEGRAM_URL: ${{ vars.TELEGRAM_URL }}
           CONTACT_EMAIL: ${{ vars.CONTACT_EMAIL }}
+          CONTACT_ADDRESS: ${{ vars.CONTACT_ADDRESS }}
           AFF_WISE_URL: ${{ vars.AFF_WISE_URL }}
           AFF_REMITLY_URL: ${{ vars.AFF_REMITLY_URL }}
           AFF_WORLDREMIT_URL: ${{ vars.AFF_WORLDREMIT_URL }}

@@ -1,6 +1,6 @@
 import json, pathlib, html, os, shutil, re
 from i18n import L, CUR
-from config import COUNTRIES, SITE_URL, GSC_VERIFICATION, GOATCOUNTER_CODE, TELEGRAM_URL, TELEGRAM_HANDLE, CONTACT_EMAIL, OPERATOR, aff_link, send_url, official_url
+from config import COUNTRIES, SITE_URL, GSC_VERIFICATION, GOATCOUNTER_CODE, TELEGRAM_URL, TELEGRAM_HANDLE, CONTACT_EMAIL, CONTACT_ADDRESS, OPERATOR, aff_link, send_url, official_url
 from legal import P as LP, PAGES as LPAGES
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = SITE_URL.rstrip("/")
@@ -39,6 +39,7 @@ CSS = (":root{--bg:#f4f6f3;--card:#fff;--ink:#0f2a26;--mute:#5f6f6b;--line:#e6eb
 "main p{max-width:62ch}footer{color:var(--mute);font-size:.78rem;padding:32px 20px 48px;max-width:720px;margin:auto;line-height:1.6}"
 ".mo{display:flex;gap:8px;align-items:flex-start;margin-top:14px;background:#fdf6ea;border:1px solid #f1dcb4;color:#7a4b06;border-radius:16px;padding:12px 14px;font-size:.86rem;line-height:1.45}.mo svg{flex:none;margin-top:2px}"
 ".sendbtn{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;background:var(--gold);color:#1f1300;text-decoration:none;font-weight:800;font-size:1.05rem;border-radius:14px;padding:14px;box-shadow:0 6px 16px rgba(0,0,0,.18)}.sendbtn:active{transform:translateY(1px)}"
+".nosend{display:flex;gap:8px;align-items:flex-start;margin:12px 2px 0;color:var(--mute);font-size:.85rem;line-height:1.45}.nosend svg{flex:none;margin-top:2px}.fnp{color:var(--mute);font-size:.78rem;font-weight:400}"
 ".rowl{color:var(--teal2);font-weight:650;text-decoration:none;border-bottom:1px dotted currentColor}"
 ".go{display:block;margin-top:14px;text-align:center;background:var(--teal);color:#fff;text-decoration:none;font-weight:700;border-radius:14px;padding:12px}"
 ".tgb{margin-top:26px;background:linear-gradient(135deg,#eaf6fd,#f4fbff);border:1px solid #cfe8f6;border-radius:20px;padding:18px;box-shadow:var(--sh)}.tgh{display:flex;align-items:center;gap:8px;color:#1576a8;font-size:1.05rem}.tgb p{margin:.4em 0 0;color:var(--mute);font-size:.9rem}"
@@ -81,14 +82,20 @@ def page(lang, path, title, desc, body, alt_paths, head_extra="", foot_extra="",
             f'<meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:locale" content="{lang}"><meta property="og:image" content="{BASE}/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{BRAND}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{html.escape(ft)}"><meta name="twitter:description" content="{html.escape(desc)}"><meta name="twitter:image" content="{BASE}/og.png">'
             + (f'<meta name="google-site-verification" content="{html.escape(GSC_VERIFICATION)}">' if GSC_VERIFICATION else "") +
             '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%279%27 fill=%27%23e8a33d%27/%3E%3Cpath d=%27M8 17l5.5 5.5L24 11%27 stroke=%27%23083d36%27 stroke-width=%273.6%27 fill=%27none%27/%3E%3C/svg%3E">')
+    js = ("<script>(function(){try{var s=sessionStorage,q=location.search;if(/[?&](gclid=|utm_source=google(&|$))/.test(q))s.setItem('wa_paid','1');"
+          "if(s.getItem('wa_paid')!=='1')return;var L=document.querySelectorAll('a[data-prov=wise]');for(var i=0;i<L.length;i++){var a=L[i];"
+          "if(a.classList.contains('sendbtn')&&a.getAttribute('data-fb-href')){a.href=a.getAttribute('data-fb-href');a.textContent=a.getAttribute('data-fb-label');"
+          "a.setAttribute('data-goatcounter-click',a.getAttribute('data-fb-ev'));a.removeAttribute('data-prov')}else if(a.classList.contains('sendbtn')){a.parentNode.removeChild(a)}"
+          "else{var x=document.createElement('span');x.textContent=a.textContent.replace(' \u2197','');a.parentNode.replaceChild(x,a)}}}catch(e){}})();</script>")
     gc = (f'<script data-goatcounter="https://{html.escape(GOATCOUNTER_CODE)}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>' if GOATCOUNTER_CODE else "")
     lp = LP[lang]; hd = html.escape(TELEGRAM_HANDLE)
     tg = (f'<section class="tgb"><div class="tgh">{TGI}<b>{lp["tgh"]}</b></div><p>{lp["tgt"]}</p>'
           f'<a class="tg" href="{html.escape(TELEGRAM_URL)}" rel="noopener" target="_blank">{TGI}<span dir="ltr">{lp["tgb"].format(tg=hd)}</span></a></section>' if TELEGRAM_URL else "")
+    addr = f'<br><span class="addr">{html.escape(CONTACT_ADDRESS)}</span>' if CONTACT_ADDRESS else ""
     fl = '<nav class="fl2">' + "".join(f'<a href="{up}{lang}/{slug}/">{lp[k]}</a>' for k, slug in LPAGES) + '</nav>'
     doc = (f'<!doctype html><html lang="{lang}" dir="{t["dir"]}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(ft)}</title>{meta}'
            f'<link rel="canonical" href="{url}">{hre}<style>{CSS}</style>{head_extra}</head><body><header><div class="wrap"><a class="logo" href="{up}{lang}/">{LOGO}<span>What<b>Arrives</b></span></a></div></header>'
-           f'<nav class="lang" aria-label="Language">{nav}</nav><main class="wrap">{body}{tg}</main><footer>{fl}{foot_extra}{t["note"]}<br>© {BRAND} · whatarrives.com</footer>{gc}</body></html>')
+           f'<nav class="lang" aria-label="Language">{nav}</nav><main class="wrap">{body}{tg}</main><footer>{fl}{foot_extra}{t["note"]}<br>© {BRAND} · whatarrives.com{addr}</footer>{js}{gc}</body></html>')
     f = OUT / lang / path; f.parent.mkdir(parents=True, exist_ok=True); f.write_text(doc)
 def got(v, amount): return v.get("received") if v.get("received") is not None else v["received_per_1000"] * amount / 1000
 def split(d, c):
@@ -107,14 +114,18 @@ def rowlink(n, src, c):
     """Plain official link (never affiliate) for every ranked row; plain text if no verified URL."""
     u = official_url(n, src)
     if not u: return html.escape(n)
-    return (f'<a class="rowl" href="{html.escape(u)}" target="_blank" rel="nofollow noopener sponsored" '
+    return (f'<a class="rowl" data-prov="{slug(n)}" href="{html.escape(u)}" target="_blank" rel="nofollow noopener sponsored" '
             f'data-goatcounter-click="row-{slug(n)}-{src.lower()}-{c.lower()}" data-goatcounter-title="{html.escape(n)} {src}-{c}">{html.escape(n)} ↗</a>')
 def fee(v): return v.get("fee_sar", v.get("fee"))
+NOSERVE = re.compile(r"does not offer|can't send between|not a \w+ send country|not supported|route.not.supported", re.I)
+def feecell(v, t): f_ = fee(v); return fmt(f_) if f_ is not None else f'<span class="fnp">{t["feenp"]}</span>'
 def chan_table(t, d, c, src="SAR"):
     ok, na = split(d, c); out = ""; amount = COUNTRIES[src]["amount"]
     if ok:
-        rows = "".join(f'<tr{" class=top" if i==0 else ""}><td>{rowlink(n,src,c)}</td><td class="n hm">{fmt(v["rate"],4)}</td><td class="n">{fmt(fee(v))}</td><td class="n">{fmt(got(v,amount))}</td></tr>' for i,(n,v) in enumerate(ok))
+        rows = "".join(f'<tr{" class=top" if i==0 else ""}><td>{rowlink(n,src,c)}</td><td class="n hm">{fmt(v["rate"],4)}</td><td class="n">{feecell(v,t)}</td><td class="n">{fmt(got(v,amount))}</td></tr>' for i,(n,v) in enumerate(ok))
         out = f'<table class="tbl"><thead><tr><th>{t["ch"]}</th><th class="n hm">{t["rate"]}</th><th class="n">{t["fee"]}</th><th class="n">{t["recv"]}</th></tr></thead><tbody>{rows}</tbody></table>'
+    from extra_sources import SERVES
+    na = [(n, v) for n, v in na if not NOSERVE.search(v.get("note") or "") and (n not in SERVES or src in SERVES[n])]
     if na: out += f'<p class="soon">{CLOCK}<span>{t["soon"]}: {html.escape(", ".join(n for n,_ in na))}</span></p>'
     return out
 def hero(t, d, c, r, src="SAR"):
@@ -122,12 +133,16 @@ def hero(t, d, c, r, src="SAR"):
     if ok:
         n, v = ok[0]; amt, sub = got(v, amount), f'{t["for1k"]} · {html.escape(n)}'
         best = (f'<div class="best"><span class="tag">{STAR}{t["best"]}</span><div class="nm">{nm(n,src,t)}</div><div class="kv">'
-                f'<span>{t["rate"]}: <b>{fmt(v["rate"],4)}</b></span><span>{t["fee"]}: <b>{fmt(fee(v))}</b></span><span>{t["recv"]}: <b>{fmt(amt)} {c}</b></span></div></div>')
+                f'<span>{t["rate"]}: <b>{fmt(v["rate"],4)}</b></span><span>{t["fee"]}: <b>{feecell(v,t)}</b></span><span>{t["recv"]}: <b>{fmt(amt)} {c}</b></span></div></div>')
     else: amt, sub, best = r*amount, f'{t["for1k"]} · {t["est"]}', f'<p class="mo">{INFO}<span>{t["midonly"]}</span></p>'
     btn = ""
     if ok and send_url(ok[0][0], src):
-        n0 = ok[0][0]; ev = f"send-{re.sub(r'[^a-z0-9]+','-',n0.lower()).strip('-')}-{src.lower()}-{c.lower()}"
-        btn = (f'<a class="sendbtn" href="{html.escape(send_url(n0, src))}" rel="nofollow sponsored noopener" target="_blank" data-goatcounter-click="{ev}" '
+        n0 = ok[0][0]; ev = f"send-{slug(n0)}-{src.lower()}-{c.lower()}"; fb = ""
+        if slug(n0) == "wise":  # fallback for paid-traffic sessions where Wise links are hidden (Wise bans paid ads)
+            alt = next(((n1, send_url(n1, src)) for n1, _ in ok[1:] if slug(n1) != "wise" and send_url(n1, src)), None)
+            if alt: fb = (f' data-fb-href="{html.escape(alt[1])}" data-fb-label="{html.escape(t["sendw"].format(n=alt[0]))} →" '
+                          f'data-fb-ev="send-{slug(alt[0])}-{src.lower()}-{c.lower()}"')
+        btn = (f'<a class="sendbtn" data-prov="{slug(n0)}"{fb} href="{html.escape(send_url(n0, src))}" rel="nofollow sponsored noopener" target="_blank" data-goatcounter-click="{ev}" '
                f'data-goatcounter-title="{html.escape(n0)} {src}-{c}">{t["sendw"].format(n=html.escape(n0))} <span aria-hidden="true">→</span></a>')
     return f'<section class="hero"><div class="lbl"><span class="fl">{FLAG.get(c,"")}</span>{t["fam"]}</div><div class="num">{fmt(amt)} <span>{c}</span></div><div class="sub">{sub}</div>{btn}</section>{best}'
 def faq(t, d, c, r, src):
@@ -163,8 +178,8 @@ def build():
                 else:
                     f = dict(s=src, c=c, cn=CUR.get(c,c), sc=sc, amt=t["amt"]); title, h1, desc = t["t2"].format(**f), t["h2"].format(**f), t["d2"].format(**f)
                 ok, _ = split(ds, c); disc = f'<p class="disc">{t["comm"]}</p>' if any(aff_link(n, src) for n,_ in ok) else ""
-                body = (f'<h1>{h1}</h1><p class="upd"><span class="dot"></span>{t["upd"]}: {upd}</p>{hero(t,ds,c,r,src)}'
-                        + (f'<h2>{t["fees"]}</h2>{chan_table(t,ds,c,src)}' if (src == "SAR" or split(ds, c)[0]) else "")
+                body = (f'<h1>{h1}</h1><p class="upd"><span class="dot"></span>{t["upd"]}: {upd}</p>{hero(t,ds,c,r,src)}<p class="nosend">{INFO}<span>{t["nosend"]}</span></p>'
+                        + ((lambda ct: f'<h2>{t["fees"]}</h2>{ct}' if ct else "")(chan_table(t,ds,c,src)))
                         + f'<p class="upd">{t["mid"]}: 1 {src} = {fmt(r,4)} {c} · Source: {ds["baseline_source"]}</p>{fb}{disc}')
                 rel = "".join(f'<a href="../{src.lower()}-to-{x.lower()}/">{FLAG.get(x,"")} {src} → {x}</a>' for x in ds["mid"] if x != c)
                 oth = "".join(f'<a href="../{s2.lower()}-to-{c.lower()}/">{COUNTRIES[s2]["flag"]} {s2} → {c}</a>' for s2, d2 in D.items() if s2 != src and c in d2["mid"])
@@ -190,8 +205,11 @@ def build():
         lp = LP[lang]; f = dict(op=OPERATOR, tg=TELEGRAM_HANDLE)
         for k, slug in LPAGES:
             ps = list(lp[k + "_p"]) if k != "contact" else list(lp["contact_p"])
-            if k == "privacy": ps.insert(2, lp["gc_on"] if GOATCOUNTER_CODE else lp["gc_off"])
+            if k == "privacy":
+                ps.insert(2, lp["gc_on"] if GOATCOUNTER_CODE else lp["gc_off"])
+                ai = next(i for i, x in enumerate(ps) if "adssettings" in x); ps.insert(ai + 1, lp["gads"])
             body = "".join(f"<p>{html.escape(x.format(**f))}</p>" for x in ps)
+            if k in ("about", "contact") and CONTACT_ADDRESS: body += f'<p class="addr"><b>{lp["addr"]}:</b> {html.escape(CONTACT_ADDRESS)}</p>'
             if k == "contact":
                 body += (f'<p><a href="mailto:{html.escape(CONTACT_EMAIL)}">{html.escape(CONTACT_EMAIL)}</a></p>' if CONTACT_EMAIL else f'<p class="mo">{INFO}<span>{lp["soon"]}</span></p>')
                 body += f'<p>{html.escape(lp["tg_line"].format(**f))}</p>'

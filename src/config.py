@@ -7,6 +7,7 @@ GSC_VERIFICATION = E("GSC_VERIFICATION")      # Google Search Console HTML-tag c
 GOATCOUNTER_CODE = E("GOATCOUNTER_CODE")      # e.g. "whatarrives" -> whatarrives.goatcounter.com
 TELEGRAM_URL = E("TELEGRAM_URL") or "https://t.me/Yayamy_helper_ya_bot"   # alert bot (default); override via repo variable
 TELEGRAM_HANDLE = "@" + TELEGRAM_URL.rstrip("/").rsplit("/", 1)[-1]
+CONTACT_ADDRESS = E("CONTACT_ADDRESS")        # postal/business address; hidden when empty
 CONTACT_EMAIL = E("CONTACT_EMAIL")            # public contact email; placeholder text shown when empty
 OPERATOR = "Ibrahim Taher"
 
