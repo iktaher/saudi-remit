@@ -61,12 +61,16 @@ def probe_page(name, url):
             else {"status":"unavailable","note":f"HTTP {status}, rate not in static HTML (JS-rendered or app-only)"}
     return out
 
+def stamp(channels):
+    t = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="minutes")
+    for ch in channels.values():
+        for v in ch.values(): v.setdefault("checked_at", t)
 def sanity(channels, mid):
     # drop parsed values that are clearly not SAR->X rates (>15% off mid-market)
     for ch in channels.values():
         for c, v in ch.items():
             if v.get("status")=="ok" and c in mid and abs(v["rate"]/mid[c]-1) > 0.15:
-                ch[c] = {"status":"unavailable","note":"parsed number failed sanity check vs mid-market"}
+                ch[c] = {"status":"unavailable","note":"parsed number failed sanity check vs mid-market","checked_at":v.get("checked_at")}
 
 def main():
     tz = zoneinfo.ZoneInfo("Asia/Riyadh")
@@ -79,6 +83,11 @@ def main():
     except ImportError:
         print("playwright not installed; falling back to static HTML probes")
         for n,u in PAGES.items(): channels[n] = probe_page(n,u)
+    try:
+        from extra_sources import collect
+        channels.update(collect("SAR", TARGETS, 1000))
+    except Exception as e: print("extra sources failed (non-fatal):", str(e)[:150])
+    stamp(channels)
     sanity(channels, mid)
     data = {"fetched_at": datetime.datetime.now(tz).isoformat(timespec="minutes"), "baseline_source": src,
             "baseline_updated": src_time, "mid": mid, "channels": channels}
@@ -95,11 +104,16 @@ def other_countries():
         try:
             mid, msrc, mtime = mid_market(src, cfg["targets"])
             if not mid: print(src, "no mid-market; skipped"); continue
-            ch = {"Wise": wise(src, cfg["targets"], cfg["amount"])}; sanity(ch, mid)
+            ch = {"Wise": wise(src, cfg["targets"], cfg["amount"])}
+            try:
+                from extra_sources import collect
+                ch.update(collect(src, cfg["targets"], cfg["amount"]))
+            except Exception as e: print(src, "extra sources failed (non-fatal):", str(e)[:150])
+            stamp(ch); sanity(ch, mid)
             d = {"source": src, "amount": cfg["amount"], "fetched_at": datetime.datetime.now(zoneinfo.ZoneInfo(cfg["tz"])).isoformat(timespec="minutes"),
                  "tz": cfg["tz"], "baseline_source": msrc, "baseline_updated": mtime, "mid": mid, "channels": ch}
             (OUT.parent / f"rates_{src.lower()}.json").write_text(json.dumps(d, indent=1, ensure_ascii=False))
-            print(src, "ok:", [c for c,v in ch["Wise"].items() if v["status"]=="ok"])
+            for n, cv in ch.items(): print(src, n, "ok:", [c for c,v in cv.items() if v["status"]=="ok"])
         except Exception as e: print(src, "failed:", str(e)[:150])
 if __name__ == "__main__":
     main(); other_countries()

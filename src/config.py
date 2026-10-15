@@ -54,6 +54,8 @@ def aff_link(provider, src):
 OFFICIAL_SEND_URLS = {
  "Western Union": {"SAR": "https://www.westernunion.com/sa/en/web/send-money/start"},
  "Wise":          {"*":   "https://wise.com/send-money"},
+ "Remitly":       {"AED": "https://www.remitly.com/ae/en", "SGD": "https://www.remitly.com/sg/en", "JPY": "https://www.remitly.com/jp/en"},
+ "Instarem":      {"SGD": "https://www.instarem.com/en-sg/", "MYR": "https://www.instarem.com/en-my/", "JPY": "https://www.instarem.com/en-jp/"},
 }
 def official_url(provider, src):
     m = OFFICIAL_SEND_URLS.get(provider, {}); return m.get(src) or m.get("*")
