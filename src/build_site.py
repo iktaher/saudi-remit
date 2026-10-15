@@ -1,6 +1,6 @@
 import json, pathlib, html, os, shutil, re
 from i18n import L, CUR
-from config import COUNTRIES, SITE_URL, GSC_VERIFICATION, GOATCOUNTER_CODE, TELEGRAM_URL, TELEGRAM_HANDLE, CONTACT_EMAIL, OPERATOR, aff_link, send_url
+from config import COUNTRIES, SITE_URL, GSC_VERIFICATION, GOATCOUNTER_CODE, TELEGRAM_URL, TELEGRAM_HANDLE, CONTACT_EMAIL, OPERATOR, aff_link, send_url, official_url
 from legal import P as LP, PAGES as LPAGES
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = SITE_URL.rstrip("/")
@@ -39,6 +39,7 @@ CSS = (":root{--bg:#f4f6f3;--card:#fff;--ink:#0f2a26;--mute:#5f6f6b;--line:#e6eb
 "main p{max-width:62ch}footer{color:var(--mute);font-size:.78rem;padding:32px 20px 48px;max-width:720px;margin:auto;line-height:1.6}"
 ".mo{display:flex;gap:8px;align-items:flex-start;margin-top:14px;background:#fdf6ea;border:1px solid #f1dcb4;color:#7a4b06;border-radius:16px;padding:12px 14px;font-size:.86rem;line-height:1.45}.mo svg{flex:none;margin-top:2px}"
 ".sendbtn{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;background:var(--gold);color:#1f1300;text-decoration:none;font-weight:800;font-size:1.05rem;border-radius:14px;padding:14px;box-shadow:0 6px 16px rgba(0,0,0,.18)}.sendbtn:active{transform:translateY(1px)}"
+".rowl{color:var(--teal2);font-weight:650;text-decoration:none;border-bottom:1px dotted currentColor}"
 ".go{display:block;margin-top:14px;text-align:center;background:var(--teal);color:#fff;text-decoration:none;font-weight:700;border-radius:14px;padding:12px}"
 ".tgb{margin-top:26px;background:linear-gradient(135deg,#eaf6fd,#f4fbff);border:1px solid #cfe8f6;border-radius:20px;padding:18px;box-shadow:var(--sh)}.tgh{display:flex;align-items:center;gap:8px;color:#1576a8;font-size:1.05rem}.tgb p{margin:.4em 0 0;color:var(--mute);font-size:.9rem}"
 ".chips{display:flex;flex-wrap:wrap;gap:8px}.chips a{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--ink)}"
@@ -101,11 +102,18 @@ def nm(n, src, t, btn=False):
     if not u: return html.escape(n)
     if btn: return f'<a class="go" href="{html.escape(u)}" rel="sponsored nofollow noopener" target="_blank">{t["send"]} · {html.escape(n)} →</a>'
     return f'<a href="{html.escape(u)}" rel="sponsored nofollow noopener" target="_blank">{html.escape(n)}</a>'
+def slug(x): return re.sub(r"[^a-z0-9]+", "-", x.lower()).strip("-")
+def rowlink(n, src, c):
+    """Plain official link (never affiliate) for every ranked row; plain text if no verified URL."""
+    u = official_url(n, src)
+    if not u: return html.escape(n)
+    return (f'<a class="rowl" href="{html.escape(u)}" target="_blank" rel="nofollow noopener sponsored" '
+            f'data-goatcounter-click="row-{slug(n)}-{src.lower()}-{c.lower()}" data-goatcounter-title="{html.escape(n)} {src}-{c}">{html.escape(n)} ↗</a>')
 def fee(v): return v.get("fee_sar", v.get("fee"))
 def chan_table(t, d, c, src="SAR"):
     ok, na = split(d, c); out = ""; amount = COUNTRIES[src]["amount"]
     if ok:
-        rows = "".join(f'<tr{" class=top" if i==0 else ""}><td>{nm(n,src,t)}</td><td class="n hm">{fmt(v["rate"],4)}</td><td class="n">{fmt(fee(v))}</td><td class="n">{fmt(got(v,amount))}</td></tr>' for i,(n,v) in enumerate(ok))
+        rows = "".join(f'<tr{" class=top" if i==0 else ""}><td>{rowlink(n,src,c)}</td><td class="n hm">{fmt(v["rate"],4)}</td><td class="n">{fmt(fee(v))}</td><td class="n">{fmt(got(v,amount))}</td></tr>' for i,(n,v) in enumerate(ok))
         out = f'<table class="tbl"><thead><tr><th>{t["ch"]}</th><th class="n hm">{t["rate"]}</th><th class="n">{t["fee"]}</th><th class="n">{t["recv"]}</th></tr></thead><tbody>{rows}</tbody></table>'
     if na: out += f'<p class="soon">{CLOCK}<span>{t["soon"]}: {html.escape(", ".join(n for n,_ in na))}</span></p>'
     return out

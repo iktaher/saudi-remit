@@ -55,6 +55,8 @@ OFFICIAL_SEND_URLS = {
  "Western Union": {"SAR": "https://www.westernunion.com/sa/en/web/send-money/start"},
  "Wise":          {"*":   "https://wise.com/send-money"},
 }
+def official_url(provider, src):
+    m = OFFICIAL_SEND_URLS.get(provider, {}); return m.get(src) or m.get("*")
 def send_url(provider, src):
     """Button target. SAR: official plain link only (never affiliate). Others: affiliate if approved+configured, else official."""
     m = OFFICIAL_SEND_URLS.get(provider, {}); official = m.get(src) or m.get("*")
