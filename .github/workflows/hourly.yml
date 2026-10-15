@@ -27,6 +27,10 @@ jobs:
           AFF_INSTAREM_URL: ${{ vars.AFF_INSTAREM_URL }}
           AFF_WU_URL: ${{ vars.AFF_WU_URL }}
           DISABLE_ALERTS: "1"
+      - name: IndexNow ping (non-fatal)
+        run: python3 src/indexnow.py || true
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
       - uses: actions/upload-pages-artifact@v3
         with: {path: site}
   deploy:
