@@ -17,6 +17,14 @@ jobs:
       - run: ./run.sh
         env:
           SITE_URL: ${{ vars.SITE_URL }}
+          GSC_VERIFICATION: ${{ vars.GSC_VERIFICATION }}
+          GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
+          TELEGRAM_URL: ${{ vars.TELEGRAM_URL }}
+          AFF_WISE_URL: ${{ vars.AFF_WISE_URL }}
+          AFF_REMITLY_URL: ${{ vars.AFF_REMITLY_URL }}
+          AFF_WORLDREMIT_URL: ${{ vars.AFF_WORLDREMIT_URL }}
+          AFF_INSTAREM_URL: ${{ vars.AFF_INSTAREM_URL }}
+          AFF_WU_URL: ${{ vars.AFF_WU_URL }}
           DISABLE_ALERTS: "1"
       - uses: actions/upload-pages-artifact@v3
         with: {path: site}

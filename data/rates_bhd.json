@@ -1,0 +1,34 @@
+{
+ "source": "BHD",
+ "amount": 100,
+ "fetched_at": "2026-10-15T13:56+03:00",
+ "tz": "Asia/Bahrain",
+ "baseline_source": "open.er-api.com",
+ "baseline_updated": "Thu, 15 Oct 2026 00:02:31 +0000",
+ "mid": {
+  "INR": 253.331817,
+  "PKR": 736.392112,
+  "BDT": 328.395815,
+  "PHP": 167.345873
+ },
+ "channels": {
+  "Wise": {
+   "INR": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "PKR": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "BDT": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "PHP": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   }
+  }
+ }
+}

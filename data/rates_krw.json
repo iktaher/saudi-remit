@@ -1,0 +1,44 @@
+{
+ "source": "KRW",
+ "amount": 1000000,
+ "fetched_at": "2026-10-15T19:56+09:00",
+ "tz": "Asia/Seoul",
+ "baseline_source": "open.er-api.com",
+ "baseline_updated": "Thu, 15 Oct 2026 00:02:31 +0000",
+ "mid": {
+  "VND": 19.336807,
+  "NPR": 0.113751,
+  "PHP": 0.04699,
+  "IDR": 13.368081,
+  "LKR": 0.246632,
+  "BDT": 0.092115
+ },
+ "channels": {
+  "Wise": {
+   "VND": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "NPR": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "PHP": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "IDR": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "LKR": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "BDT": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   }
+  }
+ }
+}

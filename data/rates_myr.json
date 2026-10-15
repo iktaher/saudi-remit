@@ -1,0 +1,59 @@
+{
+ "source": "MYR",
+ "amount": 1000,
+ "fetched_at": "2026-10-15T18:56+08:00",
+ "tz": "Asia/Kuala_Lumpur",
+ "baseline_source": "open.er-api.com",
+ "baseline_updated": "Thu, 15 Oct 2026 00:02:31 +0000",
+ "mid": {
+  "IDR": 4379.760145,
+  "BDT": 30.238356,
+  "NPR": 37.288366,
+  "INR": 23.305236,
+  "PHP": 15.394434
+ },
+ "channels": {
+  "Wise": {
+   "IDR": {
+    "status": "ok",
+    "rate": 4390.94,
+    "fee_sar": 8.11,
+    "received_per_1000": 4355329.0,
+    "received": 4355329,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "BDT": {
+    "status": "ok",
+    "rate": 30.1286,
+    "fee_sar": 15.85,
+    "received_per_1000": 29651.06,
+    "received": 29651.06,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "NPR": {
+    "status": "ok",
+    "rate": 37.2578,
+    "fee_sar": 19.19,
+    "received_per_1000": 36543.0,
+    "received": 36543,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "INR": {
+    "status": "ok",
+    "rate": 23.2836,
+    "fee_sar": 9.58,
+    "received_per_1000": 23060.54,
+    "received": 23060.54,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "PHP": {
+    "status": "ok",
+    "rate": 15.4352,
+    "fee_sar": 10.19,
+    "received_per_1000": 15277.92,
+    "received": 15277.92,
+    "note": "Wise public quote API; fee-inclusive"
+   }
+  }
+ }
+}

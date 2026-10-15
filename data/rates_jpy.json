@@ -1,0 +1,59 @@
+{
+ "source": "JPY",
+ "amount": 100000,
+ "fetched_at": "2026-10-15T19:56+09:00",
+ "tz": "Asia/Tokyo",
+ "baseline_source": "open.er-api.com",
+ "baseline_updated": "Thu, 15 Oct 2026 00:02:31 +0000",
+ "mid": {
+  "PHP": 0.396594,
+  "VND": 163.763882,
+  "NPR": 0.960634,
+  "IDR": 112.920107,
+  "LKR": 2.08857
+ },
+ "channels": {
+  "Wise": {
+   "PHP": {
+    "status": "ok",
+    "rate": 0.399367,
+    "fee_sar": 978.0,
+    "received_per_1000": 395.4612,
+    "received": 39546.12,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "VND": {
+    "status": "ok",
+    "rate": 163.976,
+    "fee_sar": 1147.0,
+    "received_per_1000": 162095.2,
+    "received": 16209520,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "NPR": {
+    "status": "ok",
+    "rate": 0.964002,
+    "fee_sar": 1660.0,
+    "received_per_1000": 948.0,
+    "received": 94800,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "IDR": {
+    "status": "ok",
+    "rate": 113.61,
+    "fee_sar": 821.0,
+    "received_per_1000": 112677.26,
+    "received": 11267726,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "LKR": {
+    "status": "ok",
+    "rate": 2.09795,
+    "fee_sar": 1075.0,
+    "received_per_1000": 2075.397,
+    "received": 207539.7,
+    "note": "Wise public quote API; fee-inclusive"
+   }
+  }
+ }
+}

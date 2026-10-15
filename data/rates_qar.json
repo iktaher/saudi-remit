@@ -1,0 +1,44 @@
+{
+ "source": "QAR",
+ "amount": 1000,
+ "fetched_at": "2026-10-15T13:56+03:00",
+ "tz": "Asia/Qatar",
+ "baseline_source": "open.er-api.com",
+ "baseline_updated": "Thu, 15 Oct 2026 00:02:31 +0000",
+ "mid": {
+  "INR": 26.168341,
+  "NPR": 41.869196,
+  "BDT": 33.922205,
+  "PKR": 76.066877,
+  "PHP": 17.286277,
+  "LKR": 90.962457
+ },
+ "channels": {
+  "Wise": {
+   "INR": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "NPR": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "BDT": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "PKR": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "PHP": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   },
+   "LKR": {
+    "status": "unavailable",
+    "note": "Sorry, you can't send between these currencies right now."
+   }
+  }
+ }
+}

@@ -11,28 +11,28 @@ def get(url, data=None, headers=None, timeout=15):
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.status, r.read().decode("utf-8", "replace")
 
-def mid_market():
+def mid_market(src="SAR", targets=TARGETS):
     try:
-        _, body = get("https://open.er-api.com/v6/latest/SAR"); j = json.loads(body)
+        _, body = get(f"https://open.er-api.com/v6/latest/{src}"); j = json.loads(body)
         if j.get("result") == "success":
-            return {c: j["rates"][c] for c in TARGETS if c in j["rates"]}, "open.er-api.com", j.get("time_last_update_utc")
+            return {c: j["rates"][c] for c in targets if c in j["rates"]}, "open.er-api.com", j.get("time_last_update_utc")
     except Exception as e: print("open.er-api failed:", e)
     try:  # fallback: frankfurter via USD cross (SAR not native there)
         _, body = get("https://api.frankfurter.dev/v1/latest?base=USD"); j = json.loads(body)
-        sar = j["rates"].get("SAR")
-        if sar: return {c: j["rates"][c]/sar for c in TARGETS if c in j["rates"]}, "frankfurter (USD cross)", j.get("date")
+        sar = j["rates"].get(src)
+        if sar: return {c: j["rates"][c]/sar for c in targets if c in j["rates"]}, "frankfurter (USD cross)", j.get("date")
     except Exception as e: print("frankfurter failed:", e)
     return {}, None, None
 
-def wise():
+def wise(src="SAR", targets=TARGETS, amount=1000):
     res = {}
-    for c in TARGETS:
+    for c in targets:
         try:
-            _, body = get("https://api.wise.com/v3/quotes/", data=json.dumps({"sourceCurrency":"SAR","targetCurrency":c,"sourceAmount":1000}).encode(), headers={"Content-Type":"application/json"})
+            _, body = get("https://api.wise.com/v3/quotes/", data=json.dumps({"sourceCurrency":src,"targetCurrency":c,"sourceAmount":amount}).encode(), headers={"Content-Type":"application/json"})
             j = json.loads(body)
             if "errors" in j: res[c] = {"status":"unavailable","note":j["errors"][0].get("message","")}; continue
             best = min(j.get("paymentOptions", []), key=lambda o: o["fee"]["total"], default=None)
-            if best: res[c] = {"status":"ok","rate":j["rate"],"fee_sar":best["fee"]["total"],"received_per_1000":best["targetAmount"]}
+            if best: res[c] = {"status":"ok","rate":j["rate"],"fee_sar":best["fee"]["total"],"received_per_1000":best["targetAmount"]*1000/amount,"received":best["targetAmount"],"note":"Wise public quote API; fee-inclusive"}
         except urllib.error.HTTPError as e:
             try: msg = json.loads(e.read().decode())["errors"][0]["message"]
             except Exception: msg = f"HTTP {e.code}"
@@ -86,4 +86,20 @@ def main():
     print("baseline", src, {k: round(v,4) for k,v in mid.items()})
     for n,ch in channels.items(): print(n, "ok:", [c for c,v in ch.items() if v["status"]=="ok"])
     return data
-if __name__ == "__main__": main()
+def other_countries():
+    """Non-Saudi senders (config-driven). Real data only: Wise public quotes where the route exists;
+    otherwise the page shows mid-market with a clear label. Failure of one country never breaks the SAR build."""
+    from config import COUNTRIES
+    for src, cfg in COUNTRIES.items():
+        if src == "SAR": continue
+        try:
+            mid, msrc, mtime = mid_market(src, cfg["targets"])
+            if not mid: print(src, "no mid-market; skipped"); continue
+            ch = {"Wise": wise(src, cfg["targets"], cfg["amount"])}; sanity(ch, mid)
+            d = {"source": src, "amount": cfg["amount"], "fetched_at": datetime.datetime.now(zoneinfo.ZoneInfo(cfg["tz"])).isoformat(timespec="minutes"),
+                 "tz": cfg["tz"], "baseline_source": msrc, "baseline_updated": mtime, "mid": mid, "channels": ch}
+            (OUT.parent / f"rates_{src.lower()}.json").write_text(json.dumps(d, indent=1, ensure_ascii=False))
+            print(src, "ok:", [c for c,v in ch["Wise"].items() if v["status"]=="ok"])
+        except Exception as e: print(src, "failed:", str(e)[:150])
+if __name__ == "__main__":
+    main(); other_countries()

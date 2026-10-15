@@ -1,0 +1,50 @@
+{
+ "source": "SGD",
+ "amount": 500,
+ "fetched_at": "2026-10-15T18:56+08:00",
+ "tz": "Asia/Singapore",
+ "baseline_source": "open.er-api.com",
+ "baseline_updated": "Thu, 15 Oct 2026 00:02:31 +0000",
+ "mid": {
+  "INR": 74.11168,
+  "PHP": 48.970441,
+  "IDR": 13927.563808,
+  "BDT": 96.204615
+ },
+ "channels": {
+  "Wise": {
+   "INR": {
+    "status": "ok",
+    "rate": 74.117,
+    "fee_sar": 2.33,
+    "received_per_1000": 73771.62,
+    "received": 36885.81,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "PHP": {
+    "status": "ok",
+    "rate": 49.1339,
+    "fee_sar": 2.6,
+    "received_per_1000": 48878.4,
+    "received": 24439.2,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "IDR": {
+    "status": "ok",
+    "rate": 13977.4,
+    "fee_sar": 1.81,
+    "received_per_1000": 13926802.0,
+    "received": 6963401,
+    "note": "Wise public quote API; fee-inclusive"
+   },
+   "BDT": {
+    "status": "ok",
+    "rate": 95.9064,
+    "fee_sar": 4.84,
+    "received_per_1000": 94978.02,
+    "received": 47489.01,
+    "note": "Wise public quote API; fee-inclusive"
+   }
+  }
+ }
+}
