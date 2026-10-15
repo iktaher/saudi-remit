@@ -1,5 +1,5 @@
 {
- "fetched_at": "2026-10-15T12:56+03:00",
+ "fetched_at": "2026-10-15T14:01+03:00",
  "baseline_source": "open.er-api.com",
  "baseline_updated": "Thu, 15 Oct 2026 00:02:31 +0000",
  "mid": {
@@ -51,218 +51,218 @@
    "INR": {
     "status": "ok",
     "service": "DIRECT TO BANK",
-    "rate": 25.2946737,
+    "rate": 25.3081534,
     "fee_sar": 0,
-    "received_per_1000": 25295.0,
+    "received_per_1000": 25309.0,
     "note": "WU online (DIRECT TO BANK); fee-inclusive",
     "options": [
      {
       "service": "MONEY IN MINUTES",
-      "rate": 25.2922769,
+      "rate": 25.2978683,
       "fee_sar": 5,
-      "received_per_1000": 25167.16
+      "received_per_1000": 25172.14
      },
      {
       "service": "DIRECT TO BANK",
-      "rate": 25.2946737,
+      "rate": 25.3081534,
       "fee_sar": 0,
-      "received_per_1000": 25295.0
+      "received_per_1000": 25309.0
      }
     ]
    },
    "PKR": {
     "status": "ok",
     "service": "DIRECT TO BANK",
-    "rate": 73.7954194,
+    "rate": 73.8347455,
     "fee_sar": 0,
-    "received_per_1000": 73795.42,
+    "received_per_1000": 73834.75,
     "note": "WU online (DIRECT TO BANK); fee-inclusive",
     "options": [
      {
       "service": "MONEY IN MINUTES",
-      "rate": 73.7954194,
+      "rate": 73.8347455,
       "fee_sar": 5,
-      "received_per_1000": 73428.28
+      "received_per_1000": 73467.41
      },
      {
       "service": "DIRECT TO BANK",
-      "rate": 73.7954194,
+      "rate": 73.8347455,
       "fee_sar": 0,
-      "received_per_1000": 73795.42
+      "received_per_1000": 73834.75
      },
      {
       "service": "DIRECT TO BANK PRI",
-      "rate": 73.7954194,
+      "rate": 73.8347455,
       "fee_sar": 0,
-      "received_per_1000": 73795.42
+      "received_per_1000": 73834.75
      },
      {
       "service": "MOBILE MONEY TRANSFER",
-      "rate": 73.7954194,
+      "rate": 73.8347455,
       "fee_sar": 0,
-      "received_per_1000": 73795.42
+      "received_per_1000": 73834.75
      }
     ]
    },
    "PHP": {
     "status": "ok",
     "service": "MONEY IN MINUTES",
-    "rate": 16.7916111,
+    "rate": 16.8005595,
     "fee_sar": 0,
-    "received_per_1000": 16791.61,
+    "received_per_1000": 16800.56,
     "note": "WU online (MONEY IN MINUTES); fee-inclusive",
     "options": [
      {
       "service": "MONEY IN MINUTES",
-      "rate": 16.7916111,
+      "rate": 16.8005595,
       "fee_sar": 0,
-      "received_per_1000": 16791.61
+      "received_per_1000": 16800.56
      },
      {
       "service": "DIRECT TO BANK",
-      "rate": 16.7916111,
+      "rate": 16.8005595,
       "fee_sar": 0,
-      "received_per_1000": 16791.61
+      "received_per_1000": 16800.56
      },
      {
       "service": "MOBILE MONEY TRANSFER",
-      "rate": 16.7916111,
+      "rate": 16.8005595,
       "fee_sar": 0,
-      "received_per_1000": 16791.61
+      "received_per_1000": 16800.56
      }
     ]
    },
    "BDT": {
     "status": "ok",
     "service": "MOBILE MONEY TRANSFER",
-    "rate": 32.8575233,
+    "rate": 32.8750333,
     "fee_sar": 0,
-    "received_per_1000": 32858.0,
+    "received_per_1000": 32876.0,
     "note": "WU online (MOBILE MONEY TRANSFER); fee-inclusive",
     "options": [
      {
       "service": "MONEY IN MINUTES",
-      "rate": 32.782956,
+      "rate": 32.8004263,
       "fee_sar": 5,
-      "received_per_1000": 32619.9
+      "received_per_1000": 32637.81
      },
      {
       "service": "DIRECT TO BANK",
-      "rate": 32.8362183,
+      "rate": 32.853717,
       "fee_sar": 0,
-      "received_per_1000": 32837.0
+      "received_per_1000": 32854.0
      },
      {
       "service": "MOBILE MONEY TRANSFER",
-      "rate": 32.8575233,
+      "rate": 32.8750333,
       "fee_sar": 0,
-      "received_per_1000": 32858.0
+      "received_per_1000": 32876.0
      }
     ]
    },
    "EGP": {
     "status": "ok",
     "service": "MONEY IN MINUTES",
-    "rate": 14.0547003,
+    "rate": 14.0621902,
     "fee_sar": 0,
-    "received_per_1000": 14054.7,
+    "received_per_1000": 14062.19,
     "note": "WU online (MONEY IN MINUTES); fee-inclusive",
     "options": [
      {
       "service": "MONEY IN MINUTES",
-      "rate": 14.0547003,
+      "rate": 14.0621902,
       "fee_sar": 0,
-      "received_per_1000": 14054.7
+      "received_per_1000": 14062.19
      },
      {
       "service": "DIRECT TO BANK",
-      "rate": 14.0547003,
+      "rate": 14.0621902,
       "fee_sar": 0,
-      "received_per_1000": 14054.7
+      "received_per_1000": 14062.19
      },
      {
       "service": "MOBILE MONEY TRANSFER",
-      "rate": 14.0547003,
+      "rate": 14.0621902,
       "fee_sar": 0,
-      "received_per_1000": 14054.7
+      "received_per_1000": 14062.19
      }
     ]
    },
    "NPR": {
     "status": "ok",
     "service": "MONEY IN MINUTES",
-    "rate": 40.2517177,
+    "rate": 40.2731681,
     "fee_sar": 5,
-    "received_per_1000": 40051.46,
+    "received_per_1000": 40072.81,
     "note": "WU online (MONEY IN MINUTES); fee-inclusive",
     "options": [
      {
       "service": "MONEY IN MINUTES",
-      "rate": 40.2517177,
+      "rate": 40.2731681,
       "fee_sar": 5,
-      "received_per_1000": 40051.46
+      "received_per_1000": 40072.81
      },
      {
       "service": "DIRECT TO BANK",
-      "rate": 40.4394141,
+      "rate": 40.4609645,
       "fee_sar": 12,
-      "received_per_1000": 39959.89
+      "received_per_1000": 39981.19
      },
      {
       "service": "MOBILE MONEY TRANSFER",
-      "rate": 40.4127829,
+      "rate": 40.4343192,
       "fee_sar": 12,
-      "received_per_1000": 39933.58
+      "received_per_1000": 39954.86
      }
     ]
    },
    "IDR": {
     "status": "ok",
     "service": "DIRECT TO BANK",
-    "rate": 4731.0926764,
+    "rate": 4733.6139088,
     "fee_sar": 0,
-    "received_per_1000": 4731100.0,
+    "received_per_1000": 4733700.0,
     "note": "WU online (DIRECT TO BANK); fee-inclusive",
     "options": [
      {
       "service": "MONEY IN MINUTES",
-      "rate": 4721.5349134,
+      "rate": 4724.0510524,
       "fee_sar": 5,
-      "received_per_1000": 4698109.45
+      "received_per_1000": 4700597.01
      },
      {
       "service": "DIRECT TO BANK",
-      "rate": 4731.0926764,
+      "rate": 4733.6139088,
       "fee_sar": 0,
-      "received_per_1000": 4731100.0
+      "received_per_1000": 4733700.0
      },
      {
       "service": "MOBILE MONEY TRANSFER",
-      "rate": 4721.5349134,
+      "rate": 4724.0510524,
       "fee_sar": 0,
-      "received_per_1000": 4721600.0
+      "received_per_1000": 4724100.0
      }
     ]
    },
    "LKR": {
     "status": "ok",
     "service": "DIRECT TO BANK",
-    "rate": 87.8143808,
+    "rate": 87.8611777,
     "fee_sar": 0,
-    "received_per_1000": 87814.38,
+    "received_per_1000": 87861.18,
     "note": "WU online (DIRECT TO BANK); fee-inclusive",
     "options": [
      {
       "service": "MONEY IN MINUTES",
-      "rate": 87.7348868,
+      "rate": 87.7816413,
       "fee_sar": 5,
-      "received_per_1000": 87298.4
+      "received_per_1000": 87344.92
      },
      {
       "service": "DIRECT TO BANK",
-      "rate": 87.8143808,
+      "rate": 87.8611777,
       "fee_sar": 0,
-      "received_per_1000": 87814.38
+      "received_per_1000": 87861.18
      }
     ]
    }

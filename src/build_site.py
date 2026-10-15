@@ -1,6 +1,7 @@
 import json, pathlib, html, os, shutil, re
 from i18n import L, CUR
-from config import COUNTRIES, SITE_URL, GSC_VERIFICATION, GOATCOUNTER_CODE, TELEGRAM_URL, aff_link
+from config import COUNTRIES, SITE_URL, GSC_VERIFICATION, GOATCOUNTER_CODE, TELEGRAM_URL, TELEGRAM_HANDLE, CONTACT_EMAIL, OPERATOR, aff_link
+from legal import P as LP, PAGES as LPAGES
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = SITE_URL.rstrip("/")
 OUT = ROOT / "site"
@@ -38,7 +39,9 @@ CSS = (":root{--bg:#f4f6f3;--card:#fff;--ink:#0f2a26;--mute:#5f6f6b;--line:#e6eb
 "main p{max-width:62ch}footer{color:var(--mute);font-size:.78rem;padding:32px 20px 48px;max-width:720px;margin:auto;line-height:1.6}"
 ".mo{display:flex;gap:8px;align-items:flex-start;margin-top:14px;background:#fdf6ea;border:1px solid #f1dcb4;color:#7a4b06;border-radius:16px;padding:12px 14px;font-size:.86rem;line-height:1.45}.mo svg{flex:none;margin-top:2px}"
 ".go{display:block;margin-top:14px;text-align:center;background:var(--teal);color:#fff;text-decoration:none;font-weight:700;border-radius:14px;padding:12px}"
-".tg{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:22px;background:#229ed9;color:#fff;text-decoration:none;font-weight:700;border-radius:16px;padding:14px;box-shadow:var(--sh)}"
+".tgb{margin-top:26px;background:linear-gradient(135deg,#eaf6fd,#f4fbff);border:1px solid #cfe8f6;border-radius:20px;padding:18px;box-shadow:var(--sh)}.tgh{display:flex;align-items:center;gap:8px;color:#1576a8;font-size:1.05rem}.tgb p{margin:.4em 0 0;color:var(--mute);font-size:.9rem}"
+".fl2{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:12px}.fl2 a{color:var(--teal2);text-decoration:none;font-weight:600}.legal p{color:#2b3d39}"
+".tg{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;background:#229ed9;color:#fff;text-decoration:none;font-weight:700;border-radius:16px;padding:14px;box-shadow:var(--sh)}"
 ".faq details{background:var(--card);border-radius:14px;padding:12px 16px;margin-bottom:8px;box-shadow:var(--sh)}.faq summary{font-weight:650;cursor:pointer}.faq p{margin:.5em 0 0;color:var(--mute);font-size:.92rem}.disc{color:var(--mute);font-size:.8rem;margin-top:18px}"
 "@media(max-width:480px){.tbl .hm{display:none}.tbl th,.tbl td{padding:12px 10px;font-size:.92rem}}"
 "@media(min-width:600px){.cur{grid-template-columns:repeat(4,minmax(0,1fr))}.hero .num{font-size:3.6rem}}")
@@ -68,10 +71,13 @@ def page(lang, path, title, desc, body, alt_paths, head_extra="", foot_extra="")
             + (f'<meta name="google-site-verification" content="{html.escape(GSC_VERIFICATION)}">' if GSC_VERIFICATION else "") +
             '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%279%27 fill=%27%23e8a33d%27/%3E%3Cpath d=%27M8 17l5.5 5.5L24 11%27 stroke=%27%23083d36%27 stroke-width=%273.6%27 fill=%27none%27/%3E%3C/svg%3E">')
     gc = (f'<script data-goatcounter="https://{html.escape(GOATCOUNTER_CODE)}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>' if GOATCOUNTER_CODE else "")
-    tg = (f'<a class="tg" href="{html.escape(TELEGRAM_URL)}" rel="noopener">{TGI}<span>{t["alerts"]}</span></a>' if TELEGRAM_URL else "")
+    lp = LP[lang]; hd = html.escape(TELEGRAM_HANDLE)
+    tg = (f'<section class="tgb"><div class="tgh">{TGI}<b>{lp["tgh"]}</b></div><p>{lp["tgt"]}</p>'
+          f'<a class="tg" href="{html.escape(TELEGRAM_URL)}" rel="noopener" target="_blank">{TGI}<span dir="ltr">{lp["tgb"].format(tg=hd)}</span></a></section>' if TELEGRAM_URL else "")
+    fl = '<nav class="fl2">' + "".join(f'<a href="{up}{lang}/{slug}/">{lp[k]}</a>' for k, slug in LPAGES) + '</nav>'
     doc = (f'<!doctype html><html lang="{lang}" dir="{t["dir"]}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(ft)}</title>{meta}'
            f'<link rel="canonical" href="{url}">{hre}<style>{CSS}</style>{head_extra}</head><body><header><div class="wrap"><a class="logo" href="{up}{lang}/">{LOGO}<span>What<b>Arrives</b></span></a></div></header>'
-           f'<nav class="lang" aria-label="Language">{nav}</nav><main class="wrap">{body}{tg}</main><footer>{foot_extra}{t["note"]}<br>© {BRAND} · whatarrives.com</footer>{gc}</body></html>')
+           f'<nav class="lang" aria-label="Language">{nav}</nav><main class="wrap">{body}{tg}</main><footer>{fl}{foot_extra}{t["note"]}<br>© {BRAND} · whatarrives.com</footer>{gc}</body></html>')
     f = OUT / lang / path; f.parent.mkdir(parents=True, exist_ok=True); f.write_text(doc)
 def got(v, amount): return v.get("received") if v.get("received") is not None else v["received_per_1000"] * amount / 1000
 def split(d, c):
@@ -146,6 +152,17 @@ def build():
         allt = "".join(f"<h2>SAR → {c}</h2>{chan_table(t,d,c)}" for c in d["mid"])
         page(lang, "channel-fees/index.html", t["fees"], t["fees"], f'<h1>{t["fees"]}</h1><p class="upd">{t["upd"]}: {upd}</p>{allt}', "channel-fees/")
         urls += [f"{lang}/payday-25th/", f"{lang}/channel-fees/"]
+    for lang in L:
+        lp = LP[lang]; f = dict(op=OPERATOR, tg=TELEGRAM_HANDLE)
+        for k, slug in LPAGES:
+            ps = list(lp[k + "_p"]) if k != "contact" else list(lp["contact_p"])
+            if k == "privacy": ps.insert(2, lp["gc_on"] if GOATCOUNTER_CODE else lp["gc_off"])
+            body = "".join(f"<p>{html.escape(x.format(**f))}</p>" for x in ps)
+            if k == "contact":
+                body += (f'<p><a href="mailto:{html.escape(CONTACT_EMAIL)}">{html.escape(CONTACT_EMAIL)}</a></p>' if CONTACT_EMAIL else f'<p class="mo">{INFO}<span>{lp["soon"]}</span></p>')
+                body += f'<p>{html.escape(lp["tg_line"].format(**f))}</p>'
+            page(lang, f"{slug}/index.html", lp[k], lp[k], f'<h1>{lp[k]}</h1><div class="legal">{body}</div>', f"{slug}/")
+            urls.append(f"{lang}/{slug}/")
     (OUT/"index.html").write_text('<!doctype html><html lang="en"><meta charset="utf-8"><title>WhatArrives</title><meta http-equiv="refresh" content="0;url=en/"><link rel="canonical" href="'+BASE+'/en/">'
         + (f'<meta name="google-site-verification" content="{html.escape(GSC_VERIFICATION)}">' if GSC_VERIFICATION else "") + '<a href="en/">WhatArrives — English</a></html>')
     lm = d['fetched_at'][:10]

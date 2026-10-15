@@ -5,7 +5,10 @@ E = lambda k: os.environ.get(k, "").strip()
 SITE_URL = E("SITE_URL") or "https://example.com"
 GSC_VERIFICATION = E("GSC_VERIFICATION")      # Google Search Console HTML-tag content value
 GOATCOUNTER_CODE = E("GOATCOUNTER_CODE")      # e.g. "whatarrives" -> whatarrives.goatcounter.com
-TELEGRAM_URL = E("TELEGRAM_URL")              # e.g. https://t.me/WhatArrivesBot ; hidden when empty
+TELEGRAM_URL = E("TELEGRAM_URL") or "https://t.me/Yayamy_helper_ya_bot"   # alert bot (default); override via repo variable
+TELEGRAM_HANDLE = "@" + TELEGRAM_URL.rstrip("/").rsplit("/", 1)[-1]
+CONTACT_EMAIL = E("CONTACT_EMAIL")            # public contact email; placeholder text shown when empty
+OPERATOR = "Ibrahim Taher"
 
 # Sending countries. amount = typical send amount used for "what arrives" (in source currency).
 # monetize=False -> never render affiliate links / commission note (SAR: SAMA advertising-rule risk).

@@ -1,7 +1,7 @@
 {
  "source": "AED",
  "amount": 1000,
- "fetched_at": "2026-10-15T14:56+04:00",
+ "fetched_at": "2026-10-15T15:01+04:00",
  "tz": "Asia/Dubai",
  "baseline_source": "open.er-api.com",
  "baseline_updated": "Thu, 15 Oct 2026 00:02:31 +0000",
@@ -18,10 +18,10 @@
   "Wise": {
    "INR": {
     "status": "ok",
-    "rate": 25.8798,
+    "rate": 25.8782,
     "fee_sar": 11.11,
-    "received_per_1000": 25592.28,
-    "received": 25592.28,
+    "received_per_1000": 25590.69,
+    "received": 25590.69,
     "note": "Wise public quote API; fee-inclusive"
    },
    "PKR": {
@@ -34,10 +34,10 @@
    },
    "PHP": {
     "status": "ok",
-    "rate": 17.1559,
-    "fee_sar": 11.73,
-    "received_per_1000": 16954.66,
-    "received": 16954.66,
+    "rate": 17.1608,
+    "fee_sar": 11.72,
+    "received_per_1000": 16959.68,
+    "received": 16959.68,
     "note": "Wise public quote API; fee-inclusive"
    },
    "BDT": {
@@ -58,18 +58,18 @@
    },
    "EGP": {
     "status": "ok",
-    "rate": 14.5712,
-    "fee_sar": 22.54,
-    "received_per_1000": 14242.77,
-    "received": 14242.77,
+    "rate": 14.5603,
+    "fee_sar": 22.56,
+    "received_per_1000": 14231.82,
+    "received": 14231.82,
     "note": "Wise public quote API; fee-inclusive"
    },
    "LKR": {
     "status": "ok",
-    "rate": 90.1239,
-    "fee_sar": 14.37,
-    "received_per_1000": 88828.82,
-    "received": 88828.82,
+    "rate": 90.1851,
+    "fee_sar": 14.36,
+    "received_per_1000": 88890.04,
+    "received": 88890.04,
     "note": "Wise public quote API; fee-inclusive"
    }
   }
