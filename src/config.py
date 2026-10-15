@@ -48,3 +48,15 @@ def aff_link(provider, src):
     a = AFFILIATES.get(provider); c = COUNTRIES[src]
     if not a or not a["url"] or not c["monetize"] or c["cc"] not in a["send"]: return None
     return a["url"]
+
+# Official (non-affiliate) send pages, verified with curl (HTTP 200) on 2026-10-15.
+# Keyed by channel -> sending currency ("*" = any). No verified URL = no button.
+OFFICIAL_SEND_URLS = {
+ "Western Union": {"SAR": "https://www.westernunion.com/sa/en/web/send-money/start"},
+ "Wise":          {"*":   "https://wise.com/send-money"},
+}
+def send_url(provider, src):
+    """Button target. SAR: official plain link only (never affiliate). Others: affiliate if approved+configured, else official."""
+    m = OFFICIAL_SEND_URLS.get(provider, {}); official = m.get(src) or m.get("*")
+    if src == "SAR": return official
+    return aff_link(provider, src) or official

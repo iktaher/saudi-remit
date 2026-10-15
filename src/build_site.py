@@ -1,6 +1,6 @@
 import json, pathlib, html, os, shutil, re
 from i18n import L, CUR
-from config import COUNTRIES, SITE_URL, GSC_VERIFICATION, GOATCOUNTER_CODE, TELEGRAM_URL, TELEGRAM_HANDLE, CONTACT_EMAIL, OPERATOR, aff_link
+from config import COUNTRIES, SITE_URL, GSC_VERIFICATION, GOATCOUNTER_CODE, TELEGRAM_URL, TELEGRAM_HANDLE, CONTACT_EMAIL, OPERATOR, aff_link, send_url
 from legal import P as LP, PAGES as LPAGES
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = SITE_URL.rstrip("/")
@@ -38,6 +38,7 @@ CSS = (":root{--bg:#f4f6f3;--card:#fff;--ink:#0f2a26;--mute:#5f6f6b;--line:#e6eb
 ".links{display:flex;flex-direction:column;gap:10px;margin-top:1.8em}.links a{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-radius:16px;padding:15px 16px;text-decoration:none;font-weight:650;color:var(--ink);box-shadow:var(--sh)}.links a:after{content:'→';color:var(--teal2)}"
 "main p{max-width:62ch}footer{color:var(--mute);font-size:.78rem;padding:32px 20px 48px;max-width:720px;margin:auto;line-height:1.6}"
 ".mo{display:flex;gap:8px;align-items:flex-start;margin-top:14px;background:#fdf6ea;border:1px solid #f1dcb4;color:#7a4b06;border-radius:16px;padding:12px 14px;font-size:.86rem;line-height:1.45}.mo svg{flex:none;margin-top:2px}"
+".sendbtn{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;background:var(--gold);color:#1f1300;text-decoration:none;font-weight:800;font-size:1.05rem;border-radius:14px;padding:14px;box-shadow:0 6px 16px rgba(0,0,0,.18)}.sendbtn:active{transform:translateY(1px)}"
 ".go{display:block;margin-top:14px;text-align:center;background:var(--teal);color:#fff;text-decoration:none;font-weight:700;border-radius:14px;padding:12px}"
 ".tgb{margin-top:26px;background:linear-gradient(135deg,#eaf6fd,#f4fbff);border:1px solid #cfe8f6;border-radius:20px;padding:18px;box-shadow:var(--sh)}.tgh{display:flex;align-items:center;gap:8px;color:#1576a8;font-size:1.05rem}.tgb p{margin:.4em 0 0;color:var(--mute);font-size:.9rem}"
 ".chips{display:flex;flex-wrap:wrap;gap:8px}.chips a{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--ink)}"
@@ -113,9 +114,14 @@ def hero(t, d, c, r, src="SAR"):
     if ok:
         n, v = ok[0]; amt, sub = got(v, amount), f'{t["for1k"]} · {html.escape(n)}'
         best = (f'<div class="best"><span class="tag">{STAR}{t["best"]}</span><div class="nm">{nm(n,src,t)}</div><div class="kv">'
-                f'<span>{t["rate"]}: <b>{fmt(v["rate"],4)}</b></span><span>{t["fee"]}: <b>{fmt(fee(v))}</b></span><span>{t["recv"]}: <b>{fmt(amt)} {c}</b></span></div>{nm(n,src,t,True) if aff_link(n,src) else ""}</div>')
+                f'<span>{t["rate"]}: <b>{fmt(v["rate"],4)}</b></span><span>{t["fee"]}: <b>{fmt(fee(v))}</b></span><span>{t["recv"]}: <b>{fmt(amt)} {c}</b></span></div></div>')
     else: amt, sub, best = r*amount, f'{t["for1k"]} · {t["est"]}', f'<p class="mo">{INFO}<span>{t["midonly"]}</span></p>'
-    return f'<section class="hero"><div class="lbl"><span class="fl">{FLAG.get(c,"")}</span>{t["fam"]}</div><div class="num">{fmt(amt)} <span>{c}</span></div><div class="sub">{sub}</div></section>{best}'
+    btn = ""
+    if ok and send_url(ok[0][0], src):
+        n0 = ok[0][0]; ev = f"send-{re.sub(r'[^a-z0-9]+','-',n0.lower()).strip('-')}-{src.lower()}-{c.lower()}"
+        btn = (f'<a class="sendbtn" href="{html.escape(send_url(n0, src))}" rel="nofollow sponsored noopener" target="_blank" data-goatcounter-click="{ev}" '
+               f'data-goatcounter-title="{html.escape(n0)} {src}-{c}">{t["sendw"].format(n=html.escape(n0))} <span aria-hidden="true">→</span></a>')
+    return f'<section class="hero"><div class="lbl"><span class="fl">{FLAG.get(c,"")}</span>{t["fam"]}</div><div class="num">{fmt(amt)} <span>{c}</span></div><div class="sub">{sub}</div>{btn}</section>{best}'
 def faq(t, d, c, r, src):
     ok, _ = split(d, c); amount = COUNTRIES[src]["amount"]; f = dict(s=src, c=c, amt=t["amt"], mid=fmt(r,4))
     if ok: n, v = ok[0]; qa = [(t["q1"].format(**f), t["a1"].format(**f, got=fmt(got(v,amount)), best=n)), (t["q2"].format(**f), t["a2"].format(**f, best=n))]
