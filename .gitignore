@@ -3,3 +3,5 @@ probe/
 __pycache__/
 data/subscribers.json
 .env
+*.log
+site/
