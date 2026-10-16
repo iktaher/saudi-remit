@@ -1,5 +1,5 @@
 import json, pathlib, html, os, shutil, re
-from i18n import L, CUR
+from i18n import L, CUR, cur_name
 from config import COUNTRIES, SITE_URL, GSC_VERIFICATION, GOATCOUNTER_CODE, TELEGRAM_URL, TELEGRAM_HANDLE, CONTACT_EMAIL, CONTACT_ADDRESS, OPERATOR, aff_link, send_url, official_url
 from legal import P as LP, PAGES as LPAGES
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -174,9 +174,10 @@ def build():
             home += f'<h2>{cfg["flag"]} {t["from"].format(sc=sc)}</h2><ul class="cur">{cards}</ul>'
             for c, r in ds["mid"].items():
                 p = f"{src.lower()}-to-{c.lower()}/"; fb, ld = faq(t, ds, c, r, src)
-                if src == "SAR": title, h1, desc = t["t_sar"].format(c=c), t["h"].format(c=c,cn=CUR[c]), t["desc"].format(c=c)
+                cn = cur_name(lang, c)
+                if src == "SAR": title, h1, desc = t["t_sar"].format(c=c, cn=cn), t["h"].format(c=c,cn=cn), t["desc"].format(c=c, cn=cn)
                 else:
-                    f = dict(s=src, c=c, cn=CUR.get(c,c), sc=sc, amt=t["amt"]); title, h1, desc = t["t2"].format(**f), t["h2"].format(**f), t["d2"].format(**f)
+                    f = dict(s=src, c=c, cn=cn, sc=sc, amt=t["amt"]); title, h1, desc = t["t2"].format(**f), t["h2"].format(**f), t["d2"].format(**f)
                 ok, _ = split(ds, c); disc = f'<p class="disc">{t["comm"]}</p>' if any(aff_link(n, src) for n,_ in ok) else ""
                 body = (f'<h1>{h1}</h1><p class="upd"><span class="dot"></span>{t["upd"]}: {upd}</p>{hero(t,ds,c,r,src)}<p class="nosend">{INFO}<span>{t["nosend"]}</span></p>'
                         + ((lambda ct: f'<h2>{t["fees"]}</h2>{ct}' if ct else "")(chan_table(t,ds,c,src)))
