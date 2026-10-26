@@ -133,3 +133,38 @@ NOSEND = {
 "ne":("हामी तुलना गर्छौं, पैसा पठाउँदैनौं। प्रयोग निःशुल्क छ, हामी कुनै शुल्क लिँदैनौं।","शुल्क प्रकाशित छैन"),
 }
 for _l in L: L[_l]["nosend"], L[_l]["feenp"] = NOSEND[_l]
+# Bahasa Indonesia (added 2026-10-26 from Remit Marketing keyword list sar_idr_id.csv; machine-drafted, NATIVE REVIEW ADVISED)
+L["id"] = {"name":"Bahasa Indonesia","dir":"ltr",
+ "title":"Kurs riyal hari ini: riyal Saudi ke {cn}","h":"Kurs riyal Saudi ke {cn} hari ini",
+ "desc":"Kurs riyal ke {c} hari ini: berapa {cn} untuk 1000 SAR. Diperbarui setiap jam.",
+ "mid":"Kurs tengah (mid-market)","per":"1000 SAR =","ch":"Layanan","rate":"Kurs","fee":"Biaya (SAR)","recv":"Diterima (per 1000 SAR)",
+ "na":"tidak tersedia","upd":"Diperbarui","home":"Kurs kirim uang dari Arab Saudi","note":"Kurs hanya perkiraan. Cek dulu ke penyedia sebelum mengirim.",
+ "payday":"Waktu terbaik kirim uang sekitar gajian (tanggal 25)","fees":"Perbandingan biaya","fam":"Yang diterima keluarga Anda",
+ "best":"Layanan terbaik saat ini","soon":"Segera hadir","for1k":"untuk 1000 SAR","est":"perkiraan kurs tengah, belum ada layanan live","pick":"Pilih mata uang",
+ "t2":"Kurs {s} ke {cn} hari ini – kurs terbaik di {sc}","h2":"{s} ke {cn}: kurs terbaik dari {sc} hari ini",
+ "d2":"Bandingkan kurs {s} ke {cn} ({c}) dari {sc} hari ini: berapa yang diterima keluarga Anda untuk {amt}. Diperbarui setiap jam.",
+ "t_sar":"Kurs riyal ke {cn} hari ini ({c}) – kurs terbaik dari Arab Saudi",
+ "midonly":"Hanya kurs tengah – belum ada penawaran live dari penyedia untuk rute ini. Biasanya penyedia memberi sedikit lebih rendah.",
+ "from":"Kirim uang dari {sc}","alerts":"Dapatkan notifikasi kurs di Telegram",
+ "comm":"Kami mungkin mendapat komisi jika Anda mendaftar lewat beberapa tautan. Ini tidak pernah mengubah peringkat, yang hanya berdasarkan kurs dan biaya.",
+ "faq":"Pertanyaan","q1":"1 {s} berapa {c}? Berapa yang saya dapat untuk {amt} hari ini?",
+ "a1":"Hari ini {amt} menjadi sekitar {got} {c} lewat {best}, layanan terbaik yang kami pantau. Kurs tengah: 1 {s} = {mid} {c}.",
+ "a1m":"Dengan kurs tengah, {amt} = {got} {c}. Belum ada penawaran live untuk rute ini, dan biasanya penyedia memberi sedikit lebih rendah.",
+ "q2":"Aplikasi mana yang memberi kurs {s} ke {c} terbaik hari ini?",
+ "a2":"Saat ini {best} memberi {c} paling banyak untuk {amt} di antara layanan yang kami cek. Peringkat hanya berdasarkan kurs dan biaya.",
+ "a2m":"Kami belum punya penawaran live untuk rute ini, jadi hanya kurs tengah yang ditampilkan.",
+ "q3":"Seberapa sering kurs diperbarui?","a3":"Setiap jam, otomatis. Selalu pastikan jumlah akhir ke penyedia sebelum mengirim.","send":"Kirim",
+ "q4":"Berapa biaya penyedia untuk mengirim {s} ke {c}?",
+ "a4":"Hari ini {best} mengenakan biaya {fee} {s} untuk {amt}; jumlah yang ditampilkan sudah termasuk biaya itu. Sebagian biaya sering tersembunyi di kurs, jadi bandingkan jumlah akhir yang diterima, bukan hanya biayanya.",
+ "a4m":"Kami belum punya data biaya live untuk rute ini. Bandingkan jumlah akhir yang diterima, karena sebagian biaya biasanya ada di kurs.",
+ "q5":"Berapa lama pengiriman sampai?",
+ "a5":"Tergantung penyedia dan cara penerimaan (rekening bank, ambil tunai atau dompet digital). Kami tidak mengukur waktu pengiriman; penyedia menampilkan perkiraan waktu sebelum Anda membayar.",
+ "q6":"Kapan waktu terbaik mengirim {s} ke {c}?",
+ "a6":"Tidak ada yang bisa menebak kurs dengan pasti. Halaman ini diperbarui setiap jam; pasang notifikasi Telegram di kurs target Anda dan kirim saat tercapai.",
+ "rel":"Mata uang lain dari {sc}","other":"{c} dari negara lain",
+ "home_d":"Bandingkan berapa uang yang sampai ke keluarga saat Anda mengirim dari Arab Saudi, UEA, Kuwait, Qatar, Oman, Bahrain, Malaysia, Singapura, Jepang dan Korea. Diperbarui setiap jam.",
+ "pay_d":"Kapan kirim uang dari Arab Saudi sekitar gajian (tanggal 25): apa yang menggerakkan kurs riyal dan cara memilih waktu.",
+ "fees_d":"Biaya dan jumlah diterima untuk setiap layanan dari Arab Saudi, dibandingkan setiap jam untuk semua mata uang.",
+ "sendw":"Kirim lewat {n}","nosend":"Kami membandingkan, kami tidak mengirim uang. Gratis dipakai, kami tidak memungut biaya.","feenp":"biaya tidak dipublikasikan"}
+CUR_L["id"] = {"INR":"rupee India","PKR":"rupee Pakistan","PHP":"peso Filipina","BDT":"taka Bangladesh","EGP":"pound Mesir","NPR":"rupee Nepal","IDR":"rupiah","LKR":"rupee Sri Lanka","VND":"dong Vietnam"}
+SENDW["id"] = L["id"]["sendw"]; NOSEND["id"] = (L["id"]["nosend"], L["id"]["feenp"])

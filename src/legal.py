@@ -78,3 +78,31 @@ GADS = {
 "ne":("Google Ads: हामीले Google Ads अभियान चलाउँदा हाम्रा पृष्ठले Google Ads ट्याग लोड गर्न सक्छन्, जसले कुकी र पृष्ठ ठेगानामा क्लिक पहिचानकर्ता (gclid) प्रयोग गरी विज्ञापन प्रदर्शन नाप्छ (कन्भर्जन ट्र्याकिङ, जस्तै प्रदायकको लिंकमा क्लिक) र रिमार्केटिङ सूचीमा प्रयोग हुन सक्छ। विज्ञापन चलेको बेला मापनका लागि मात्र। व्यक्तिगत विज्ञापन adssettings.google.com मा बन्द गर्नुहोस्।","ठेगाना"),
 }
 for _l in P: P[_l]["gads"], P[_l]["addr"] = GADS[_l]
+# Bahasa Indonesia (added 2026-10-26; machine-drafted, NATIVE REVIEW ADVISED)
+P["id"] = {"about":"Tentang Kami","privacy":"Kebijakan Privasi","contact":"Kontak","terms":"Ketentuan & Penafian","aff":"Pengungkapan Afiliasi",
+ "tgh":"Dapatkan notifikasi kurs di Telegram","tgt":"Notifikasi gratis saat kurs ke mata uang negara Anda bergerak. Buka bot lalu kirim /alert.","tgb":"Buka {tg}",
+ "soon":"Detail kontak segera hadir.","contact_p":["WhatArrives dikelola oleh {op}.","Untuk koreksi, pertanyaan atau kerja sama:"],
+ "tg_line":"Anda juga bisa menghubungi kami lewat bot Telegram {tg}.",
+ "about_p":["WhatArrives menunjukkan berapa uang yang benar-benar sampai ke keluarga saat pekerja migran mengirim uang dari Arab Saudi, UEA, negara Teluk lain dan Asia.",
+  "Situs ini dikelola oleh {op}. Kurs dikumpulkan otomatis setiap jam dari sumber publik (penawaran penyedia dan kurs tengah sebagai acuan). Jika tidak ada penawaran live, kami menampilkan kurs tengah dan menandainya dengan jelas. Kami tidak pernah mengarang angka.",
+  "Penyedia diurutkan hanya berdasarkan jumlah yang diterima keluarga Anda setelah biaya."],
+ "privacy_p":["Halaman ini menjelaskan data apa yang dipakai WhatArrives. Situs ini dikelola oleh {op}.",
+  "Kami tidak meminta Anda membuat akun dan tidak mengumpulkan nama, email atau data pembayaran Anda di situs ini.",
+  "Telegram: jika Anda memakai bot notifikasi kami {tg}, Telegram membagikan ID chat Anda dan notifikasi yang Anda pasang ke bot agar bot bisa mengirim pesan. Anda bisa berhenti kapan saja dengan /stop. Kebijakan privasi Telegram sendiri berlaku untuk penggunaan Telegram.",
+  "Tautan afiliasi: beberapa halaman untuk negara selain Arab Saudi mungkin berisi tautan afiliasi. Jika Anda mengkliknya, penyedia dan jaringan afiliasinya mungkin memakai cookie atau teknologi serupa untuk mencatat bahwa Anda datang dari WhatArrives.",
+  "Iklan: kami mungkin menampilkan iklan Google AdSense di masa depan. Jika ya, Google dan mitranya mungkin memakai cookie untuk menampilkan iklan, termasuk iklan yang dipersonalisasi berdasarkan kunjungan Anda ke situs ini dan situs lain. Anda bisa mengaturnya di Setelan Iklan Google (adssettings.google.com). Kami akan memperbarui halaman ini sebelum iklan tayang.",
+  "Hosting: situs ini di-hosting di GitHub Pages, yang mungkin mencatat data teknis seperti alamat IP untuk keamanan.",
+  "Pertanyaan: lihat halaman Kontak."],
+ "gc_on":"Analitik: kami memakai GoatCounter, layanan ramah privasi yang menghitung kunjungan halaman tanpa cookie dan tanpa melacak Anda di situs lain.",
+ "gc_off":"Analitik: saat ini kami tidak memakai analitik. Jika kami menambahkan GoatCounter (ramah privasi, tanpa cookie), kami akan memperbarui halaman ini.",
+ "terms_p":["Kurs di WhatArrives hanya perkiraan. Kurs dikumpulkan otomatis dan bisa berubah kapan saja atau sudah tidak terbaru. Selalu pastikan kurs, biaya dan jumlah diterima ke penyedia sebelum mengirim uang.",
+  "WhatArrives adalah situs informasi. Kami bukan bank, pengirim uang, money changer atau penasihat keuangan, dan kami tidak mengirim, menerima atau menyimpan uang.",
+  "Kami tidak bertanggung jawab atas kerugian dari keputusan yang dibuat berdasarkan situs ini. Penggunaan situs atas risiko Anda sendiri.",
+  "Nama penyedia milik pemiliknya masing-masing; kami tidak berafiliasi dengan mereka kecuali disebut di Pengungkapan Afiliasi."],
+ "aff_p":["Beberapa halaman untuk negara pengirim selain Arab Saudi mungkin berisi tautan afiliasi. Jika Anda mendaftar atau mengirim uang lewat tautan itu, kami mungkin mendapat komisi tanpa biaya tambahan untuk Anda.",
+  "Peringkat hanya berdasarkan berapa yang diterima keluarga Anda setelah biaya. Komisi tidak pernah mengubah urutan, dan penyedia tidak bisa membayar untuk naik peringkat.",
+  "Tautan afiliasi ditandai sebagai bersponsor dan halaman menampilkan catatan jika ada.",
+  "Halaman untuk mengirim uang dari Arab Saudi tidak berisi tautan afiliasi atau monetisasi lain."],
+ "gads":"Google Ads: saat kami menjalankan kampanye Google Ads, halaman kami mungkin memuat tag Google Ads, yang memakai cookie dan ID klik (gclid) di alamat halaman untuk mengukur kinerja iklan (pelacakan konversi, misalnya klik pada tautan penyedia) dan mungkin dipakai untuk daftar pemasaran ulang. Ini hanya dipakai untuk pengukuran iklan selama iklan berjalan. Anda bisa menolak iklan yang dipersonalisasi di adssettings.google.com.",
+ "addr":"Alamat"}
+GADS["id"] = (P["id"]["gads"], P["id"]["addr"])
